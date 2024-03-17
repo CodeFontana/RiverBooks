@@ -1,6 +1,6 @@
 @local = http://localhost:5114
 
-GET {{local}}/books
+GET {{local}}/api/books
 Accept: application/json
 
 ### 

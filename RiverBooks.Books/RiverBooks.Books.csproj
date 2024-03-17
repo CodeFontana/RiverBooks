@@ -10,4 +10,8 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="FastEndpoints" Version="5.23.0" />
+	</ItemGroup>
+
 </Project>
