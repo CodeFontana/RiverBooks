@@ -4,3 +4,18 @@ GET {{local}}/api/books
 Accept: application/json
 
 ### 
+
+GET {{local}}/api/books/1
+Accept: application/json
+
+### 
+
+POST {{local}}/api/books
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Modular Monoliths - Getting Started",
+  "author": "Steve Smith",
+  "price": 0.99
+}

@@ -14,7 +14,7 @@ internal class ListBooksEndpoint(IBookService bookService) : EndpointWithoutRequ
 
     public override async Task HandleAsync(CancellationToken cancellationToken = default)
     {
-        List<BookDto> books = _bookService.ListBooks();
+        List<Book> books = await _bookService.ListBooksAsync();
 
         await SendAsync(new ListBooksResponse()
         {
