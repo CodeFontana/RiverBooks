@@ -1,4 +1,8 @@
-﻿namespace RiverBooks.Books;
+﻿using RiverBooks.Books.Data.Entities;
+using RiverBooks.Books.Interfaces;
+using RiverBooks.Books.Models;
+
+namespace RiverBooks.Books.Services;
 
 internal class BookService : IBookService
 {

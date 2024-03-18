@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using RiverBooks.Books.Data.Entities;
 
-namespace RiverBooks.Books;
+namespace RiverBooks.Books.Data;
 
 public class BookDbContext : DbContext
 {

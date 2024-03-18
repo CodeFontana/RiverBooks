@@ -1,4 +1,6 @@
-﻿namespace RiverBooks.Books;
+﻿using RiverBooks.Books.Models;
+
+namespace RiverBooks.Books.Responses;
 
 public class ListBooksResponse
 {
