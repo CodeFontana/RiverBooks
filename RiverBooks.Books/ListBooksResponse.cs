@@ -2,5 +2,5 @@
 
 public class ListBooksResponse
 {
-    public List<Book> Books { get; set; } = new();
+    public List<BookDto> Books { get; set; } = new();
 }

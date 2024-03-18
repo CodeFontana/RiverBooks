@@ -28,15 +28,24 @@ internal class BookService : IBookService
         }
     }
 
-    public async Task<Book?> GetBookByIdAsync(int id)
+    public async Task<BookDto?> GetBookByIdAsync(int id)
     {
         Book? book = await _bookRepository.GetByIdAsync(id);
-        return book;
+
+        if (book is not null)
+        {
+            return new BookDto(book.Id, book.Title, book.Author, book.Price);
+        }
+
+        return null;
     }
 
-    public async Task<List<Book>> ListBooksAsync()
+    public async Task<List<BookDto>> ListBooksAsync()
     {
-        List<Book> books = await _bookRepository.ListAsync();
+        List<BookDto> books = (await _bookRepository.ListAsync())
+            .Select(book => new BookDto(book.Id, book.Title, book.Author, book.Price))
+            .ToList();
+
         return books;
     }
 

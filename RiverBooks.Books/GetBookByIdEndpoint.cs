@@ -2,7 +2,7 @@
 
 namespace RiverBooks.Books;
 
-internal class GetBookByIdEndpoint(IBookService bookService) : Endpoint<GetBookByIdRequest, Book>
+internal class GetBookByIdEndpoint(IBookService bookService) : Endpoint<GetBookByIdRequest, BookDto>
 {
     private readonly IBookService _bookService = bookService;
 
@@ -14,7 +14,7 @@ internal class GetBookByIdEndpoint(IBookService bookService) : Endpoint<GetBookB
 
     public override async Task HandleAsync(GetBookByIdRequest req, CancellationToken ct)
     {
-        Book? book = await _bookService.GetBookByIdAsync(req.Id);
+        BookDto? book = await _bookService.GetBookByIdAsync(req.Id);
 
         if (book is null)
         {
