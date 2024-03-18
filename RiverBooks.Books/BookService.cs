@@ -9,11 +9,12 @@ internal class BookService : IBookService
         _bookRepository = bookRepository;
     }
 
-    public async Task<int> CreateBookAsync(Book newBook)
+    public async Task<int> CreateBookAsync(BookDto newBook)
     {
-        await _bookRepository.AddAsync(newBook);
+        Book book = new(newBook.Id, newBook.Title, newBook.Author, newBook.Price);
+        await _bookRepository.AddAsync(book);
         await _bookRepository.SaveChangesAsync();
-        return newBook.Id;
+        return book.Id;
     }
 
     public async Task DeleteBookAsync(int id)
