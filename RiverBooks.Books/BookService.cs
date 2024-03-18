@@ -57,6 +57,7 @@ internal class BookService : IBookService
         {
             book.UpdatePrice(newPrice);
             await _bookRepository.SaveChangesAsync();
+            return;
         }
 
         throw new InvalidOperationException("Book not found");

@@ -1,15 +1,18 @@
 @local = http://localhost:5114
 
+### List Books
 GET {{local}}/api/books
 Accept: application/json
 
-###
-
+### Get Book by Id
 GET {{local}}/api/books/1
 Accept: application/json
 
-###
+### Get Book by Id - Not Found
+GET {{local}}/api/books/1111
+Accept: application/json
 
+### Create Book
 POST {{local}}/api/books
 Accept: application/json
 Content-Type: application/json
@@ -20,4 +23,16 @@ Content-Type: application/json
   "price": 0.99
 }
 
-###
+### Delete Book by Id
+DELETE {{local}}/api/books/5
+Accept: application/json
+
+### Update Book Price by Id
+POST {{local}}/api/books/9/pricehistory
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 9,
+  "price": 0.19
+}
