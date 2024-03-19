@@ -3,17 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Api", "RiverBooks.Api\RiverBooks.Api.csproj", "{A8179E46-07EE-45B8-B473-8F32F27A00E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiverBooks.Api", "RiverBooks.Api\RiverBooks.Api.csproj", "{A8179E46-07EE-45B8-B473-8F32F27A00E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Books", "RiverBooks.Books\RiverBooks.Books.csproj", "{25AE29C8-F7F5-46C9-8E88-93AC3B6A2A93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiverBooks.Books", "RiverBooks.Books\RiverBooks.Books.csproj", "{25AE29C8-F7F5-46C9-8E88-93AC3B6A2A93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Books.Tests", "..\tests\RiverBooks.Books.Tests\RiverBooks.Books.Tests.csproj", "{395665A6-4EF5-4E11-9095-221E886DD599}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A8179E46-07EE-45B8-B473-8F32F27A00E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -24,5 +23,15 @@ Global
 		{25AE29C8-F7F5-46C9-8E88-93AC3B6A2A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25AE29C8-F7F5-46C9-8E88-93AC3B6A2A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25AE29C8-F7F5-46C9-8E88-93AC3B6A2A93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395665A6-4EF5-4E11-9095-221E886DD599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395665A6-4EF5-4E11-9095-221E886DD599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395665A6-4EF5-4E11-9095-221E886DD599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395665A6-4EF5-4E11-9095-221E886DD599}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3FFD0D57-49B2-428B-8348-55FE1C3EEBB1}
 	EndGlobalSection
 EndGlobal

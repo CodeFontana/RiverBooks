@@ -19,3 +19,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.AddBookApiEndpoints();
 app.Run();
+
+/*
+ * The public partial class Program { } makes the Program class part of 
+ * the compilation output. Without it, the implicit Program class defined 
+ * by the top-level statements in .NET 6 and onwards isn't explicitly 
+ * included in the compiled assembly's metadata as a type that can be 
+ * referenced, which can lead to issues when trying to use it as the 
+ * entry point for tests.*/
+public partial class Program { }
