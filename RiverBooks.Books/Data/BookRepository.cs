@@ -5,11 +5,11 @@ using RiverBooks.Books.Interfaces;
 
 namespace RiverBooks.Books.Data;
 
-internal class EfBookRepository : IBookRepository
+internal class BookRepository : IBookRepository
 {
     private readonly BookDbContext _db;
 
-    public EfBookRepository(BookDbContext db)
+    public BookRepository(BookDbContext db)
     {
         _db = db;
     }

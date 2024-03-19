@@ -15,7 +15,7 @@ internal class BookService : IBookService
 
     public async Task<int> CreateBookAsync(BookDto newBook)
     {
-        Book book = new(newBook.Id, newBook.Title, newBook.Author, newBook.Price);
+        Book book = new(0, newBook.Title, newBook.Author, newBook.Price);
         await _bookRepository.AddAsync(book);
         await _bookRepository.SaveChangesAsync();
         return book.Id;

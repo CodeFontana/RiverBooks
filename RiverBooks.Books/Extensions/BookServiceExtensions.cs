@@ -16,7 +16,7 @@ public static class BookServiceExtensions
         {
             options.UseSqlServer(connectionString);
         });
-        services.AddScoped<IBookRepository, EfBookRepository>();
+        services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IBookService, BookService>();
         return services;
     }

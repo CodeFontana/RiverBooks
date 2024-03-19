@@ -1,38 +1,32 @@
 @local = http://localhost:5114
 
 ### List Books
-GET {{local}}/api/books
+GET {{local}}/api/v1/books
 Accept: application/json
 
 ### Get Book by Id
-GET {{local}}/api/books/1
+GET {{local}}/api/v1/books/1
 Accept: application/json
 
 ### Get Book by Id - Not Found
-GET {{local}}/api/books/1111
+GET {{local}}/api/v1/books/1111
 Accept: application/json
 
 ### Create Book
-POST {{local}}/api/books
+POST {{local}}/api/v1/books
 Accept: application/json
 Content-Type: application/json
 
 {
-  "title": "Modular Monoliths - Getting Started",
-  "author": "Steve Smith",
-  "price": 0.99
+  "title": "The Catcher in the Rye",
+  "author": "J.D. Salinger",
+  "price": 19.95
 }
-
-### Delete Book by Id
-DELETE {{local}}/api/books/5
-Accept: application/json
 
 ### Update Book Price by Id
-POST {{local}}/api/books/9/pricehistory
+POST {{local}}/api/v1/books/9/pricehistory?price=0.01
 Accept: application/json
-Content-Type: application/json
 
-{
-  "id": 9,
-  "price": 0.09
-}
+### Delete Book by Id
+DELETE {{local}}/api/v1/books/11
+Accept: application/json
