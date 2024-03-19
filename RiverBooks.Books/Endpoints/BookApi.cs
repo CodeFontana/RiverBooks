@@ -70,6 +70,10 @@ public static class BookApi
             BookDto? updatedBook = await bookService.GetBookByIdAsync(id);
             return Results.Ok(updatedBook);
         }
+        catch (ArgumentException e)
+        {
+            return Results.Problem(e.Message, statusCode: 400);
+        }
         catch (Exception e)
         {
             return Results.Problem(e.Message, statusCode: 500);
