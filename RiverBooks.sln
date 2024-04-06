@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiverBooks.Api", "RiverBook
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiverBooks.Books", "RiverBooks.Books\RiverBooks.Books.csproj", "{25AE29C8-F7F5-46C9-8E88-93AC3B6A2A93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Books.Tests", "..\tests\RiverBooks.Books.Tests\RiverBooks.Books.Tests.csproj", "{395665A6-4EF5-4E11-9095-221E886DD599}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Books.Tests", "RiverBooks.Books.Tests\RiverBooks.Books.Tests.csproj", "{395665A6-4EF5-4E11-9095-221E886DD599}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
