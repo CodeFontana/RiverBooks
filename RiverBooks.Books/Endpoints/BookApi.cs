@@ -20,7 +20,7 @@ public static class BookApi
     {
         try
         {
-            List<BookDto> result = await bookService.ListBooksAsync();
+            List<BookResponse> result = await bookService.ListBooksAsync();
             return Results.Ok(result);
         }
         catch (Exception e)
@@ -33,7 +33,7 @@ public static class BookApi
     {
         try
         {
-            BookDto? result = await bookService.GetBookByIdAsync(id);
+            BookResponse? result = await bookService.GetBookByIdAsync(id);
 
             if (result is null)
             {
@@ -48,13 +48,12 @@ public static class BookApi
         }
     }
 
-    private static async Task<IResult> CreateAsync(IBookService bookService, BookDto newBook)
+    private static async Task<IResult> CreateAsync(IBookService bookService, BookRequest newBook)
     {
         try
         {
-            int id = await bookService.CreateBookAsync(newBook);
-            newBook = newBook with { Id = id };
-            return Results.Ok(newBook);
+            BookResponse result = await bookService.CreateBookAsync(newBook);
+            return Results.Ok(result);
         }
         catch (Exception e)
         {
@@ -67,7 +66,7 @@ public static class BookApi
         try
         {
             await bookService.UpdateBookPriceAsync(id, price);
-            BookDto? updatedBook = await bookService.GetBookByIdAsync(id);
+            BookResponse? updatedBook = await bookService.GetBookByIdAsync(id);
             return Results.Ok(updatedBook);
         }
         catch (ArgumentException e)

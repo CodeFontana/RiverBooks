@@ -13,12 +13,12 @@ internal class BookService : IBookService
         _bookRepository = bookRepository;
     }
 
-    public async Task<int> CreateBookAsync(BookDto newBook)
+    public async Task<BookResponse> CreateBookAsync(BookRequest newBook)
     {
-        Book book = new(0, newBook.Title, newBook.Author, newBook.Price);
+        Book book = new(newBook.Title, newBook.Author, newBook.Price);
         await _bookRepository.AddAsync(book);
         await _bookRepository.SaveChangesAsync();
-        return book.Id;
+        return new BookResponse(book.Id, book.Title, book.Author, book.Price);
     }
 
     public async Task DeleteBookAsync(int id)
@@ -32,22 +32,22 @@ internal class BookService : IBookService
         }
     }
 
-    public async Task<BookDto?> GetBookByIdAsync(int id)
+    public async Task<BookResponse?> GetBookByIdAsync(int id)
     {
         Book? book = await _bookRepository.GetByIdAsync(id);
 
         if (book is not null)
         {
-            return new BookDto(book.Id, book.Title, book.Author, book.Price);
+            return new BookResponse(book.Id, book.Title, book.Author, book.Price);
         }
 
         return null;
     }
 
-    public async Task<List<BookDto>> ListBooksAsync()
+    public async Task<List<BookResponse>> ListBooksAsync()
     {
-        List<BookDto> books = (await _bookRepository.ListAsync())
-            .Select(book => new BookDto(book.Id, book.Title, book.Author, book.Price))
+        List<BookResponse> books = (await _bookRepository.ListAsync())
+            .Select(book => new BookResponse(book.Id, book.Title, book.Author, book.Price))
             .ToList();
 
         return books;

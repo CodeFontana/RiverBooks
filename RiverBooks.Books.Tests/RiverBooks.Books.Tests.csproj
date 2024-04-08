@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\RiverBooks.Api\RiverBooks.Api.csproj" />
-    <ProjectReference Include="..\..\src\RiverBooks.Books\RiverBooks.Books.csproj" />
+    <ProjectReference Include="..\RiverBooks.Api\RiverBooks.Api.csproj" />
+    <ProjectReference Include="..\RiverBooks.Books\RiverBooks.Books.csproj" />
   </ItemGroup>
 
   <ItemGroup>

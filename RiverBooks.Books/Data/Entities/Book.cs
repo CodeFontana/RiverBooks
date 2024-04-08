@@ -7,6 +7,21 @@ public class Book
     public string Author { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
 
+    internal Book(string title, string author, decimal price)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(nameof(title));
+        ArgumentException.ThrowIfNullOrWhiteSpace(nameof(author));
+
+        if (price < 0)
+        {
+            throw new ArgumentException("Price cannot be negative", nameof(price));
+        }
+
+        Title = title;
+        Author = author;
+        Price = price;
+    }
+
     internal Book(int id, string title, string author, decimal price)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(nameof(title));

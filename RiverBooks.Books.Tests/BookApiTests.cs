@@ -37,7 +37,7 @@ public class BookApiTests : IClassFixture<BooksApiApplicationFactory>
             HttpResponseMessage response = await _client.PostAsync("/api/v1/books", content);
             response.EnsureSuccessStatusCode();
 
-            BookDto? returnedBook = JsonSerializer.Deserialize<BookDto>(
+            BookResponse? returnedBook = JsonSerializer.Deserialize<BookResponse>(
                 await response.Content.ReadAsStringAsync(),
                 _jsonOptions);
 
@@ -46,7 +46,7 @@ public class BookApiTests : IClassFixture<BooksApiApplicationFactory>
             Assert.Equal(book.Title, returnedBook.Title);
             Assert.Equal(book.Author, returnedBook.Author);
             Assert.Equal(book.Price, returnedBook.Price);
-            Assert.True(returnedBook.Id.HasValue && returnedBook.Id.Value > 0);
+            Assert.True(returnedBook.Id > 0);
         }
     }
 
@@ -75,7 +75,7 @@ public class BookApiTests : IClassFixture<BooksApiApplicationFactory>
         HttpResponseMessage listResponse = await _client.GetAsync("/api/v1/books");
         listResponse.EnsureSuccessStatusCode();
 
-        List<BookDto>? booksList = JsonSerializer.Deserialize<List<BookDto>>(
+        List<BookResponse>? booksList = JsonSerializer.Deserialize<List<BookResponse>>(
             await listResponse.Content.ReadAsStringAsync(),
             _jsonOptions);
 
@@ -103,19 +103,19 @@ public class BookApiTests : IClassFixture<BooksApiApplicationFactory>
         HttpResponseMessage createResponse = await _client.PostAsync("/api/v1/books", createContent);
         createResponse.EnsureSuccessStatusCode();
 
-        BookDto? createdBook = JsonSerializer.Deserialize<BookDto>(
+        BookResponse? createdBook = JsonSerializer.Deserialize<BookResponse>(
             await createResponse.Content.ReadAsStringAsync(),
             _jsonOptions);
 
         // Assert -- Book created
         Assert.NotNull(createdBook);
-        Assert.True(createdBook.Id.HasValue && createdBook.Id.Value > 0);
+        Assert.True(createdBook.Id > 0);
 
         // Act (again)
-        HttpResponseMessage getResponse = await _client.GetAsync($"/api/v1/books/{createdBook.Id.Value}");
+        HttpResponseMessage getResponse = await _client.GetAsync($"/api/v1/books/{createdBook.Id}");
         getResponse.EnsureSuccessStatusCode();
 
-        BookDto? retrievedBook = JsonSerializer.Deserialize<BookDto>(
+        BookResponse? retrievedBook = JsonSerializer.Deserialize<BookResponse>(
             await getResponse.Content.ReadAsStringAsync(),
             _jsonOptions);
 
@@ -141,25 +141,25 @@ public class BookApiTests : IClassFixture<BooksApiApplicationFactory>
         HttpResponseMessage createResponse = await _client.PostAsync("/api/v1/books", createContent);
         createResponse.EnsureSuccessStatusCode();
 
-        BookDto? createdBook = JsonSerializer.Deserialize<BookDto>(
+        BookResponse? createdBook = JsonSerializer.Deserialize<BookResponse>(
             await createResponse.Content.ReadAsStringAsync(),
             _jsonOptions);
 
         // Assert
         Assert.NotNull(createdBook);
-        Assert.True(createdBook.Id.HasValue && createdBook.Id.Value > 0);
+        Assert.True(createdBook.Id > 0);
 
         // Arrange -- Update the price
         decimal newPrice = 19.99m;
 
         // Act -- Update the price
-        HttpResponseMessage updateResponse = await _client.PostAsync($"/api/v1/books/{createdBook.Id.Value}/pricehistory?price={newPrice}", null);
+        HttpResponseMessage updateResponse = await _client.PostAsync($"/api/v1/books/{createdBook.Id}/pricehistory?price={newPrice}", null);
         updateResponse.EnsureSuccessStatusCode();
 
-        HttpResponseMessage getResponse = await _client.GetAsync($"/api/v1/books/{createdBook.Id.Value}");
+        HttpResponseMessage getResponse = await _client.GetAsync($"/api/v1/books/{createdBook.Id}");
         getResponse.EnsureSuccessStatusCode();
 
-        BookDto? updatedBook = JsonSerializer.Deserialize<BookDto>(
+        BookResponse? updatedBook = JsonSerializer.Deserialize<BookResponse>(
             await getResponse.Content.ReadAsStringAsync(),
             _jsonOptions);
 
@@ -182,19 +182,19 @@ public class BookApiTests : IClassFixture<BooksApiApplicationFactory>
         HttpResponseMessage createResponse = await _client.PostAsync("/api/v1/books", createContent);
         createResponse.EnsureSuccessStatusCode();
 
-        BookDto? createdBook = JsonSerializer.Deserialize<BookDto>(
+        BookResponse? createdBook = JsonSerializer.Deserialize<BookResponse>(
             await createResponse.Content.ReadAsStringAsync(),
             _jsonOptions);
 
         // Assert -- Book created
         Assert.NotNull(createdBook);
-        Assert.True(createdBook.Id.HasValue && createdBook.Id.Value > 0);
+        Assert.True(createdBook.Id > 0);
 
         // Act -- Delete the book
-        HttpResponseMessage deleteResponse = await _client.DeleteAsync($"/api/v1/books/{createdBook.Id.Value}");
+        HttpResponseMessage deleteResponse = await _client.DeleteAsync($"/api/v1/books/{createdBook.Id}");
         deleteResponse.EnsureSuccessStatusCode();
 
-        HttpResponseMessage getResponse = await _client.GetAsync($"/api/v1/books/{createdBook.Id.Value}");
+        HttpResponseMessage getResponse = await _client.GetAsync($"/api/v1/books/{createdBook.Id}");
 
         // Assert -- Book deleted
         Assert.Equal(System.Net.HttpStatusCode.NotFound, getResponse.StatusCode);
