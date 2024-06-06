@@ -1,18 +1,24 @@
 @local = http://localhost:5114
 
-### List Books
+# List Books
 GET {{local}}/api/v1/books
 Accept: application/json
 
-### Get Book by Id
+###
+
+# Get Book by Id
 GET {{local}}/api/v1/books/1
 Accept: application/json
 
-### Get Book by Id - Not Found
+###
+
+# Get Book by Id - Not Found
 GET {{local}}/api/v1/books/1111
 Accept: application/json
 
-### Create Book
+###
+
+# Create Book
 POST {{local}}/api/v1/books
 Accept: application/json
 Content-Type: application/json
@@ -22,11 +28,14 @@ Content-Type: application/json
   "author": "J.D. Salinger",
   "price": 19.95
 }
+###
 
-### Update Book Price by Id
+# Update Book Price by Id
 POST {{local}}/api/v1/books/9/pricehistory?price=0.01
 Accept: application/json
 
-### Delete Book by Id
+###
+
+# Delete Book by Id
 DELETE {{local}}/api/v1/books/11
 Accept: application/json
