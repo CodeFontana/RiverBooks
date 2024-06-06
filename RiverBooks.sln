@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -7,7 +6,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiverBooks.Api", "RiverBook
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiverBooks.Books", "RiverBooks.Books\RiverBooks.Books.csproj", "{25AE29C8-F7F5-46C9-8E88-93AC3B6A2A93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Books.Tests", "RiverBooks.Books.Tests\RiverBooks.Books.Tests.csproj", "{395665A6-4EF5-4E11-9095-221E886DD599}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiverBooks.Books.Tests", "RiverBooks.Books.Tests\RiverBooks.Books.Tests.csproj", "{395665A6-4EF5-4E11-9095-221E886DD599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Users", "RiverBooks.Users\RiverBooks.Users.csproj", "{3BCE01A1-F024-4D66-8AD3-7FA616A082AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +16,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BCE01A1-F024-4D66-8AD3-7FA616A082AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BCE01A1-F024-4D66-8AD3-7FA616A082AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BCE01A1-F024-4D66-8AD3-7FA616A082AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BCE01A1-F024-4D66-8AD3-7FA616A082AA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8179E46-07EE-45B8-B473-8F32F27A00E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A8179E46-07EE-45B8-B473-8F32F27A00E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8179E46-07EE-45B8-B473-8F32F27A00E6}.Release|Any CPU.ActiveCfg = Release|Any CPU

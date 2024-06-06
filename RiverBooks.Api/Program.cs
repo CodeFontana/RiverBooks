@@ -1,10 +1,17 @@
 using RiverBooks.Books.Endpoints;
 using RiverBooks.Books.Extensions;
+using RiverBooks.Users.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+using ILoggerFactory loggerFactory = LoggerFactory.Create(options =>
+{
+    options.SetMinimumLevel(LogLevel.Trace);
+    options.AddConsole();
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddBookServices(builder.Configuration);
+builder.Services.AddBookServices(builder.Configuration, loggerFactory);
+builder.Services.AddUserServices(builder.Configuration, loggerFactory);
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
