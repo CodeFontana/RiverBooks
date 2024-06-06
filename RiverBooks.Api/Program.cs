@@ -1,5 +1,6 @@
 using RiverBooks.Books.Endpoints;
 using RiverBooks.Books.Extensions;
+using RiverBooks.Users.Endpoints;
 using RiverBooks.Users.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -23,8 +24,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
 app.AddBookApiEndpoints();
+app.AddUserApiEndpoints();
 app.Run();
 
 /*

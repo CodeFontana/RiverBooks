@@ -1,4 +1,4 @@
-@local = http://localhost:5114
+@local = https://localhost:7014
 
 # List Books
 GET {{local}}/api/v1/books
@@ -39,3 +39,19 @@ Accept: application/json
 # Delete Book by Id
 DELETE {{local}}/api/v1/books/11
 Accept: application/json
+
+###
+
+# Create User
+POST {{local}}/api/v1/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "Brian",
+  "lastName": "Test",
+  "email": "brian@test.com",
+  "password": "Passw0rd123!!"
+}
+
+###
