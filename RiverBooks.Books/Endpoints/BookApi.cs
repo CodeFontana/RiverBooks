@@ -25,7 +25,7 @@ public static class BookApi
         }
         catch (Exception e)
         {
-            return Results.Problem(e.Message, statusCode: 500);
+            return Results.Problem(e.Message, statusCode: StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -44,7 +44,7 @@ public static class BookApi
         }
         catch (Exception e)
         {
-            return Results.Problem(e.Message, statusCode: 500);
+            return Results.Problem(e.Message, statusCode: StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -57,7 +57,7 @@ public static class BookApi
         }
         catch (Exception e)
         {
-            return Results.Problem(e.Message, statusCode: 500);
+            return Results.Problem(e.Message, statusCode: StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -71,11 +71,11 @@ public static class BookApi
         }
         catch (ArgumentException e)
         {
-            return Results.Problem(e.Message, statusCode: 400);
+            return Results.Problem(e.Message, statusCode: StatusCodes.Status400BadRequest);
         }
         catch (Exception e)
         {
-            return Results.Problem(e.Message, statusCode: 500);
+            return Results.Problem(e.Message, statusCode: StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -88,7 +88,7 @@ public static class BookApi
         }
         catch (Exception e)
         {
-            return Results.Problem(e.Message, statusCode: 500);
+            return Results.Problem(e.Message, statusCode: StatusCodes.Status500InternalServerError);
         }
     }
 }
