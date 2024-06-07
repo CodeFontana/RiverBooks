@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RiverBooks.Users.Data;
 using RiverBooks.Users.Data.Entities;
+using RiverBooks.Users.Interfaces;
+using RiverBooks.Users.Services;
 
 namespace RiverBooks.Users.Extensions;
 
@@ -21,6 +23,7 @@ public static class UserServiceExtensions
         });
         services.AddIdentityCore<ApplicationUser>()
             .AddEntityFrameworkStores<UserDbContext>();
+        services.AddSingleton<ITokenService, TokenService>();
         logger.LogInformation("User services added to the service collection.");
         return services;
     }

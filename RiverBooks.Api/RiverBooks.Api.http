@@ -55,3 +55,13 @@ Content-Type: application/json
 }
 
 ###
+
+# Login User
+POST {{local}}/api/v1/users/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "brian@test.com",
+  "password": "Passw0rd123!!"
+}
