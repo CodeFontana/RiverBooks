@@ -1,6 +1,8 @@
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.OpenApi;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using RiverBooks.Books.Endpoints;
 using RiverBooks.Books.Extensions;
 using RiverBooks.Users.Endpoints;
@@ -12,58 +14,8 @@ using ILoggerFactory loggerFactory = LoggerFactory.Create(options =>
     options.SetMinimumLevel(LogLevel.Trace);
     options.AddConsole();
 });
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "RiverBooks API v1",
-        Version = "v1",
-        Description = "RiverBooks API"
-    });
-    //options.SwaggerDoc("v2", new OpenApiInfo
-    //{
-    //    Title = "RiverBooks API v2",
-    //    Version = "v2",
-    //    Description = "RiverBooks API"
-    //});
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Specify JWT bearer token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
-            });
-});
-builder.Services.AddApiVersioning(options =>
-{
-    options.AssumeDefaultVersionWhenUnspecified = true;
-    options.DefaultApiVersion = new(1, 0);
-    options.ReportApiVersions = true;
-}).AddMvc().AddApiExplorer(options =>
-    {
-        options.GroupNameFormat = "'v'VVV";
-        options.SubstituteApiVersionInUrl = true;
-    });
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = "Bearer";
-    options.DefaultChallengeScheme = "Bearer";
-}).AddJwtBearer(options =>
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new()
         {
@@ -74,12 +26,17 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.ASCII.GetBytes(
-                    builder.Configuration.GetValue<string>("Authentication:JwtSecurityKey"))),
+                    builder.Configuration.GetValue<string>("Authentication:JwtSecurityKey")
+                        ?? throw new InvalidOperationException("Configuration is missing JwtSecurityKey"))),
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.FromMinutes(10)
+            ClockSkew = TimeSpan.FromMinutes(2)
         };
     });
 builder.Services.AddAuthorization();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<JwtBearerSecuritySchemeTransformer>();
+});
 builder.Services.AddCors(policy =>
 {
     policy.AddPolicy("OpenCorsPolicy", options =>
@@ -94,11 +51,11 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.MapOpenApi().AllowAnonymous();
     app.UseSwaggerUI(options =>
     {
-        // options.SwaggerEndpoint("/swagger/v2/swagger.json", "RiverBooks v2");
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "RiverBooks v1");
+        // options.SwaggerEndpoint("/openapi/v2.json", "RiverBooks v2");
+        options.SwaggerEndpoint("/openapi/v1.json", "RiverBooks v1");
         options.EnableTryItOutByDefault();
         options.ConfigObject.AdditionalItems["syntaxHighlight"] = new Dictionary<string, object>
         {
@@ -114,11 +71,39 @@ app.AddBookApiEndpoints();
 app.AddUserApiEndpoints();
 app.Run();
 
-/*
- * The public partial class Program { } makes the Program class part of 
- * the compilation output. Without it, the implicit Program class defined 
- * by the top-level statements in .NET 6 and onwards isn't explicitly 
- * included in the compiled assembly's metadata as a type that can be 
- * referenced, which can lead to issues when trying to use it as the 
- * entry point for tests.*/
-public partial class Program { }
+internal sealed class JwtBearerSecuritySchemeTransformer(IAuthenticationSchemeProvider authenticationSchemeProvider) : IOpenApiDocumentTransformer
+{
+    public async Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
+    {
+        IEnumerable<AuthenticationScheme> authenticationSchemes = await authenticationSchemeProvider.GetAllSchemesAsync();
+
+        if (authenticationSchemes.Any(authScheme => authScheme.Name == "Bearer"))
+        {
+            // Add the security scheme at the document level
+            Dictionary<string, IOpenApiSecurityScheme> securitySchemes = new()
+            {
+                ["Bearer"] = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. Enter your token (without the 'Bearer ' prefix).",
+                }
+            };
+            document.Components ??= new OpenApiComponents();
+            document.Components.SecuritySchemes = securitySchemes;
+
+            // Apply it as a requirement for all operations
+            foreach (KeyValuePair<HttpMethod, OpenApiOperation> operation in document.Paths.Values.SelectMany(path => path.Operations!))
+            {
+                operation.Value.Security ??= [];
+                operation.Value.Security.Add(new OpenApiSecurityRequirement
+                {
+                    [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+                });
+            }
+        }
+    }
+}
